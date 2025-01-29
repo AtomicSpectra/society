@@ -1,98 +1,119 @@
 /* General Styles for Form */
+/* General Container */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f4f8;
-    font-family: Arial, sans-serif;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f7fc; /* Light background */
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Form Container */
+.form-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  margin: 20px;
+}
+
+/* Heading Style */
+h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Input Fields */
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f9fafb;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focused Input */
+input:focus {
+  outline: none;
+  border-color: #4f7cff;
+  box-shadow: 0 0 8px rgba(79, 124, 255, 0.4);
+}
+
+/* Submit Button */
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #4f7cff; /* Professional blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover and Active States for Button */
+button:hover {
+  background-color: #3e6bc2;
+}
+
+button:active {
+  transform: scale(0.98); /* Slight shrink effect on click */
+}
+
+/* Error Message Style */
+.error {
+  color: #ff4d4d; /* Red for errors */
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Link to switch between Login and Signup */
+.switch-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.switch-container a {
+  color: #4f7cff;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.switch-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsiveness */
+@media (max-width: 500px) {
   .form-container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
-    margin: 20px;
+    padding: 20px;
+    max-width: 350px;
   }
-  
+
   h2 {
-    text-align: center;
     font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
   }
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: #fafafa;
-  }
-  
-  input:focus {
-    outline: none;
-    border-color: #3b82f6;
-  }
-  
-  button {
-    width: 100%;
-    padding: 12px;
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  button:hover {
-    background-color: #2563eb;
-  }
-  
-  .error {
-    color: red;
+
+  input, button {
     font-size: 14px;
-    margin-top: 10px;
-    text-align: center;
   }
-  
-  /* Link to switch between Login and Signup */
-  .switch-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-  }
-  
-  .switch-container a {
-    color: #3b82f6;
-    font-size: 14px;
-    text-decoration: none;
-  }
-  
-  .switch-container a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Responsiveness */
-  @media (max-width: 500px) {
-    .form-container {
-      padding: 20px;
-      max-width: 300px;
-    }
-  
-    h2 {
-      font-size: 20px;
-    }
-  
-    input, button {
-      font-size: 14px;
-    }
-  }
-  
+}
+
+/* Adding smooth transitions for all interactive elements */
+input, button {
+  transition: all 0.3s ease-in-out;
+}

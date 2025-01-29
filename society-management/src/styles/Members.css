@@ -1,0 +1,63 @@
+/* General Container Styling */
+.members-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading Styling */
+  .members-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  /* Society Card Layout */
+  .society-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .society-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  /* Members List */
+  .members-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .member-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    font-size: 1rem;
+  }
+  
+  .member-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* Error and Loading Styling */
+  .error {
+    color: #e74c3c;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1rem;
+    color: #3498db;
+  }
+  

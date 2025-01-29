@@ -7,6 +7,7 @@ import Navigation from './components/Navigation';
 import Signup from './components/Signup';
 import Chat from './components/Chat'
 import Calendar from './components/Calendar'
+import Logout from './components/Logout';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/chat" element={<Chat/>} />
           <Route path="/calendar" element={<Calendar/>} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
     </AuthProvider>

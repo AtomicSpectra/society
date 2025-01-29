@@ -1,0 +1,10 @@
+.logout-container {
+    background: white;
+    padding: 20px;
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  

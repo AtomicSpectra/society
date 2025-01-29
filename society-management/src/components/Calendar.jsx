@@ -1,8 +1,9 @@
-// src/components/Calendar.jsx
 import { useState, useEffect } from 'react';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { format } from 'date-fns';
+import { Box, TextField, Button, Typography, Card, CardContent } from '@mui/material';
+import "../styles/Calendar.css";
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
@@ -11,63 +12,98 @@ const Calendar = () => {
     date: '',
     description: ''
   });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const eventsCollection = await getDocs(collection(db, 'events'));
-      setEvents(eventsCollection.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })));
+      try {
+        const eventsQuery = query(collection(db, 'events'), orderBy('date', 'asc'));
+        const eventsCollection = await getDocs(eventsQuery);
+        setEvents(
+          eventsCollection.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+            date: doc.data().date?.toDate() || new Date() // Ensure valid dates
+          }))
+        );
+      } catch (err) {
+        console.error("Error fetching events:", err);
+        setError("Failed to load events. Please try again.");
+      }
     };
     fetchEvents();
   }, []);
 
   const addEvent = async (e) => {
     e.preventDefault();
-    await addDoc(collection(db, 'events'), {
-      ...newEvent,
-      timestamp: new Date()
-    });
-    setNewEvent({ title: '', date: '', description: '' });
+    if (!newEvent.title || !newEvent.date) {
+      setError("Title and date are required.");
+      return;
+    }
+    try {
+      await addDoc(collection(db, 'events'), {
+        title: newEvent.title,
+        description: newEvent.description,
+        date: new Date(newEvent.date)
+      });
+      setNewEvent({ title: '', date: '', description: '' });
+      setError(null); // Clear errors
+    } catch (err) {
+      console.error("Error adding event:", err);
+      setError("Failed to add event.");
+    }
   };
 
   return (
-    <div className="card">
-      <h2>Society Calendar</h2>
+    <Box className="card" sx={{ padding: 3 }}>
+      <Typography variant="h4" gutterBottom>Upcoming Events</Typography>
+      {error && <Typography color="error">{error}</Typography>}
+      
       <form onSubmit={addEvent}>
-        <input
-          type="text"
-          placeholder="Event Title"
+        <TextField
+          label="Event Title"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           value={newEvent.title}
-          onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}
-          className="input-field"
+          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
         />
-        <input
+        <TextField
+          label="Event Date"
           type="date"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           value={newEvent.date}
-          onChange={(e) => setNewEvent({...newEvent, date: e.target.value})}
-          className="input-field"
+          onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
         />
-        <textarea
-          placeholder="Description"
+        <TextField
+          label="Description"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          multiline
+          rows={4}
           value={newEvent.description}
-          onChange={(e) => setNewEvent({...newEvent, description: e.target.value})}
-          className="input-field"
+          onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
         />
-        <button type="submit" className="btn btn-primary">Add Event</button>
+        <Button type="submit" variant="contained" color="primary">Add Event</Button>
       </form>
-      <div className="events-list">
+
+      <Box className="events-list" sx={{ marginTop: 3 }}>
         {events.map(event => (
-          <div key={event.id} className="card">
-            <h3>{event.title}</h3>
-            <p>{format(new Date(event.date), 'MMMM dd, yyyy')}</p>
-            <p>{event.description}</p>
-          </div>
+          <Card key={event.id} sx={{ marginBottom: 2 }}>
+            <CardContent>
+              <Typography variant="h6">{event.title}</Typography>
+              <Typography color="textSecondary">{format(event.date, 'MMMM dd, yyyy')}</Typography>
+              <Typography>{event.description}</Typography>
+            </CardContent>
+          </Card>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
 export default Calendar;
+
